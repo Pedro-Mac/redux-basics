@@ -2,7 +2,6 @@ const redux = require('redux');
 const createStore = redux.createStore;
 
 const initialState = {
-  word: 'dog',
   counter: 0
 };
 
@@ -26,9 +25,13 @@ const rootReducer = (state = initialState, action) => {
 const store = createStore(rootReducer);
 console.log(store.getState());
 
+//Subscription
+//It triggers whenever the state is updated
+store.subscribe(() => {
+  console.log('[Subscription]', store.getState());
+});
+
 //Dispatching Action
 store.dispatch({ type: 'INCREMENT_COUNTER' });
 store.dispatch({ type: 'ADD_COUNTER', value: 10 });
 console.log(store.getState());
-
-//Subscription
