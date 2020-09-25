@@ -4,6 +4,14 @@ import { updateObject } from './../utility';
 const initialState = {
   results: []
 };
+
+const deleteResult = (state, action) => {
+  const updatedArray = state.results.filter(val => {
+    return val.id !== action.resultElId;
+  });
+  return updateObject(state, { results: updatedArray });
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.STORE_RESULT:
@@ -15,10 +23,7 @@ const reducer = (state = initialState, action) => {
       });
 
     case actionTypes.DELETE_RESULT:
-      const auxArray = state.results.filter(val => {
-        return val.id !== action.resultElId;
-      });
-      return updateObject(state, { results: auxArray });
+      return deleteResult(state, action);
   }
   return state;
 };
